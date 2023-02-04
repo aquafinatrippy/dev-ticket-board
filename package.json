@@ -1,0 +1,27 @@
+{
+  "name": "development-ticket-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon Server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aquafinatrippy/dev-ticket-board.git"
+  },
+  "author": "Tanel Tekko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aquafinatrippy/dev-ticket-board/issues"
+  },
+  "homepage": "https://github.com/aquafinatrippy/dev-ticket-board#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0",
+    "nodemon": "^2.0.20"
+  }
+}
