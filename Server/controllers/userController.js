@@ -54,7 +54,12 @@ const LoginUser = asyncHandler(async (req, res) => {
 });
 
 const GetMe = asyncHandler(async (req, res) => {
-  res.send({ message: "me" });
+  const { id: _id, name, email } = req.user;
+  res.status(200).send({
+    id,
+    name,
+    email,
+  });
 });
 
 const generateToken = (id) => {
