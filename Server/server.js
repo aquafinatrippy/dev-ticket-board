@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
+import { ConnectDB } from "./config/db.js";
 
+ConnectDB();
 const app = express();
 dotenv.config();
 

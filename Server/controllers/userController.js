@@ -1,16 +1,62 @@
 import asyncHandler from "express-async-handler";
+import bcryptjs from "bcryptjs";
+import { User } from "../models/userModel.js";
+import jsonwebtoken from "jsonwebtoken";
 
 const RegisterUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     res.status(400).send({ message: "Missing credentials" });
   }
-  res.status(200).send("ight");
-  res.send("register route");
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
+  const salt = await bcryptjs.genSalt(10);
+  const hashedPw = await bcryptjs.hash(password, salt);
+
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPw,
+  });
+  if (user) {
+    res.status(201).json({
+      message: "User created",
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error("Failed to create user");
+  }
 });
 
 const LoginUser = asyncHandler(async (req, res) => {
-  res.send("register route");
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (user && (await bcryptjs.compare(password, user.password))) {
+    res.status(201).json({
+      message: "User created",
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid credentials");
+  }
 });
+
+const generateToken = (id) => {
+  return jsonwebtoken.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+};
 
 export { RegisterUser, LoginUser };
