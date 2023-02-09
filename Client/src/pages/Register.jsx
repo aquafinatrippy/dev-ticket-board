@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Box, Button, Typography } from "@mui/material";
 import { toast } from "react-toastify";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +28,9 @@ export const Register = () => {
 
   return (
     <div>
-      <Typography>Register</Typography>
+      <Typography>
+        <GroupAddIcon /> Register
+      </Typography>
       <Typography>Please create an account</Typography>
 
       <form onSubmit={(e) => onSubmit(e)}>

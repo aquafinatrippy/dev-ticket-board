@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
+import Login from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Navbar } from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
@@ -18,11 +18,7 @@ function App() {
         <Navbar />
         <Container maxWidth="sm" sx={{ margin: "100px auto 0 auto" }}>
           {" "}
-          <Box
-            sx={{
-              height: "100vh",
-            }}
-          >
+          <Box display="flex">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
