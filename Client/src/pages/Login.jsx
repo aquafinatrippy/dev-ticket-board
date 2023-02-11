@@ -82,6 +82,7 @@ export const Login = () => {
                 variant="text"
                 color="primary"
                 size="medium"
+                fullWidth
               >
                 Sign in
               </Button>

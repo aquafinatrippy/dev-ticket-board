@@ -111,6 +111,7 @@ export const Register = () => {
                 variant="text"
                 color="primary"
                 size="medium"
+                fullWidth
               >
                 Register
               </Button>

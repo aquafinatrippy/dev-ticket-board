@@ -8,10 +8,8 @@ import { Register } from "./pages/Register";
 import { Navbar } from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Grid } from "@mui/material";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
