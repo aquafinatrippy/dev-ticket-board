@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { CenterContent } from "../styles/global";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../features/auth/authSlice";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,10 +25,19 @@ export const Login = () => {
   };
 
   const { email, password } = formData;
+  const dispatch = useDispatch();
+  const {user, loading, success, message} = useSelector((state) => state.auth);
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (!password) {
       toast.error("Passwords dont match");
+    } else {
+      const userData = {
+        email,
+        password,
+      };
+      dispatch(login(userData));
     }
   };
 

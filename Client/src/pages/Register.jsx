@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import {
@@ -10,6 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import { CenterContent } from "../styles/global";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp, reset } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +21,8 @@ export const Register = () => {
     password: "",
     password2: "",
   });
+  const navigate = useNavigate();
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -26,10 +31,33 @@ export const Register = () => {
   };
 
   const { name, email, password, password2 } = formData;
+
+  const dispatch = useDispatch();
+  const { user, loading, success, message, error } = useSelector(
+    (state) => state.auth
+  );
+  useEffect(() => {
+    if (error) {
+      toast.error(message);
+    }
+    if (success || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [error, success, user, message, navigate, dispatch]);
+
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (password !== password2 || password2 !== password) {
       toast.error("Passwords dont match");
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+      dispatch(signUp(userData));
     }
   };
 
