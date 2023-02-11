@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import { Box, Button, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import {
+  Avatar,
+  Box,
+  Button,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { CenterContent } from "../styles/global";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -27,53 +34,90 @@ export const Register = () => {
   };
 
   return (
-    <div>
-      <Typography>
-        <GroupAddIcon /> Register
-      </Typography>
-      <Typography>Please create an account</Typography>
+    <main>
+      <Paper>
+        <Box sx={{ width: "80%", margin: "0 auto", padding: "20px" }}>
+          <Box
+            sx={{
+              ...CenterContent,
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar>
+              <GroupAddIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign Up
+            </Typography>
+          </Box>
+          <form onSubmit={(e) => onSubmit(e)}>
+            <TextField
+              required
+              id="name"
+              name="name"
+              autoComplete="name"
+              value={name}
+              autoFocus
+              onChange={(e) => onChange(e)}
+              label="Name"
+              margin="normal"
+              variant="standard"
+              fullWidth
+            />
+            <TextField
+              required
+              id="email"
+              name="email"
+              autoComplete="email"
+              value={email}
+              autoFocus
+              onChange={(e) => onChange(e)}
+              label="Email"
+              margin="normal"
+              variant="standard"
+              fullWidth
+            />
 
-      <form onSubmit={(e) => onSubmit(e)}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "30px" }}>
-          <TextField
-            onChange={(e) => onChange(e)}
-            value={name}
-            id="name"
-            label="Enter your name"
-            variant="outlined"
-            fullWidth
-          />
-          <TextField
-            onChange={(e) => onChange(e)}
-            value={email}
-            id="email"
-            label="Enter email"
-            variant="outlined"
-            fullWidth
-          />
-          <TextField
-            onChange={(e) => onChange(e)}
-            value={password}
-            id="password"
-            label="Password"
-            variant="outlined"
-            type="password"
-            fullWidth
-          />
-          <TextField
-            onChange={(e) => onChange(e)}
-            value={password2}
-            id="password2"
-            label="ConfirmPassword"
-            variant="outlined"
-            type="password"
-            fullWidth
-          />
-          <Button type="submit" variant="outlined">
-            Register Account
-          </Button>
+            <TextField
+              label="Password"
+              margin="normal"
+              required
+              type="password"
+              autoComplete="current-password"
+              variant="standard"
+              onChange={(e) => onChange(e)}
+              name="password"
+              id="password"
+              value={password}
+              fullWidth
+            />
+            <TextField
+              label="Confirm Password"
+              margin="normal"
+              required
+              type="password"
+              autoComplete="current-password"
+              variant="standard"
+              onChange={(e) => onChange(e)}
+              name="password2"
+              id="password2"
+              value={password2}
+              fullWidth
+            />
+            <Box sx={CenterContent}>
+              <Button
+                type="submit"
+                variant="text"
+                color="primary"
+                size="medium"
+              >
+                Register
+              </Button>
+            </Box>
+          </form>{" "}
         </Box>
-      </form>
-    </div>
+      </Paper>
+    </main>
   );
 };

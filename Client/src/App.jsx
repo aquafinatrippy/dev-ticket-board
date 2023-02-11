@@ -3,11 +3,12 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import Login from "./pages/Login";
+import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Navbar } from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Grid } from "@mui/material";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -16,16 +17,28 @@ function App() {
     <div className="App">
       <Router>
         <Navbar />
-        <Container maxWidth="sm" sx={{ margin: "100px auto 0 auto" }}>
-          {" "}
-          <Box display="flex">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </Box>
-        </Container>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+          width={"100vw"}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Container fixed sx={{ margin: "100px auto 0 auto" }}>
+            {" "}
+            <Box display="flex" sx={{ justifyContent: "center" }}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </Box>
+          </Container>
+        </Box>
       </Router>
       <ToastContainer />
     </div>

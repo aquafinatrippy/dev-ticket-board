@@ -1,99 +1,94 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import {
   Avatar,
+  Box,
   Button,
-  Checkbox,
-  CssBaseline,
-  FormControl,
-  FormControlLabel,
-  Input,
-  InputLabel,
   Paper,
+  TextField,
   Typography,
 } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import { CenterContent } from "../styles/global";
 
-const styles = (theme) => ({
-  main: {
-    width: "auto",
-    display: "block", // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
-      theme.spacing.unit * 3
-    }px`,
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing.unit,
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 3,
-  },
-});
+export const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
-function Login() {
+  const { email, password } = formData;
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!password) {
+      toast.error("Passwords dont match");
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <CssBaseline />
-      <Paper className={styles.paper}>
-        <Avatar className={styles.avatar}>
-          <LockOpenIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={styles.form}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              name="password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={styles.submit}
+    <main>
+      <Paper>
+        <Box sx={{ width: "80%", margin: "0 auto", padding: "20px" }}>
+          <Box
+            sx={{
+              ...CenterContent,
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            Sign in
-          </Button>
-        </form>
+            <Avatar>
+              <LockOpenIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+          </Box>
+          <form onSubmit={(e) => onSubmit(e)}>
+            <TextField
+              required
+              id="email"
+              name="email"
+              autoComplete="email"
+              value={email}
+              autoFocus
+              onChange={(e) => onChange(e)}
+              label="Email"
+              margin="normal"
+              variant="standard"
+              fullWidth
+            />
+
+            <TextField
+              label="Password"
+              margin="normal"
+              required
+              type="password"
+              autoComplete="current-password"
+              variant="standard"
+              onChange={(e) => onChange(e)}
+              name="password"
+              id="password"
+              value={password}
+              fullWidth
+            />
+            <Box sx={CenterContent}>
+              <Button
+                type="submit"
+                variant="text"
+                color="primary"
+                size="medium"
+              >
+                Sign in
+              </Button>
+            </Box>
+          </form>{" "}
+        </Box>
       </Paper>
     </main>
   );
-}
-
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
 };
-
-export default Login;
