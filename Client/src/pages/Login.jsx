@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -10,7 +10,8 @@ import {
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { CenterContent } from "../styles/global";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../features/auth/authSlice";
+import { login, reset } from "../features/auth/authSlice";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,19 @@ export const Login = () => {
 
   const { email, password } = formData;
   const dispatch = useDispatch();
-  const {user, loading, success, message} = useSelector((state) => state.auth);
+  const { user, error, loading, success, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (error) {
+      toast.error(message);
+    }
+    if (success || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [user, message, error]);
 
   const onSubmit = (e) => {
     e.preventDefault();

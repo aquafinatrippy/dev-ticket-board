@@ -19,6 +19,9 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, reset } from "../features/auth/authSlice";
 
 const drawerWidth = 240;
 
@@ -48,18 +51,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const Navigations = [
-  { to: "/", text: "Home" },
-  { to: "/login", text: "Login" },
-  { to: "/register", text: "Register" },
-];
-
 export const Navbar = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -68,23 +66,49 @@ export const Navbar = () => {
     setOpen(false);
   };
 
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
+  const Navigations = [
+    { to: "/", text: "Home" },
+    ...(user
+      ? [
+          {
+            to: "/",
+            text: "Logout",
+            action: () => {
+              onLogout();
+            },
+          },
+        ]
+      : [
+          { to: "/", text: "Logout" },
+          { to: "/login", text: "Login" },
+        ]),
+  ];
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Dev Ticket Board
-          </Typography>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Dev Ticket Board
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -111,9 +135,16 @@ export const Navbar = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {Navigations.map(({ text, to }, index) => (
+          {Navigations.map(({ text, to, action }, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => navigate(to)}>
+              <ListItemButton
+                onClick={() => {
+                  navigate(to);
+                  if (typeof action === "function") {
+                    action();
+                  }
+                }}
+              >
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>

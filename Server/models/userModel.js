@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    password: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
