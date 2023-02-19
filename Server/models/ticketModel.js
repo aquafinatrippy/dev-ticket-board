@@ -12,10 +12,6 @@ const ticketSchema = mongoose.Schema(
       type: String,
       required: [true, "Title missing"],
     },
-    project: {
-      type: String,
-      required: [true, "Project missing"],
-    },
     description: {
       type: String,
       required: [true, "Empty description"],

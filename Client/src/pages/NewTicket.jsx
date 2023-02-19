@@ -1,18 +1,20 @@
 import { Box, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createTicket } from "../features/tickets/ticketSlice";
 
 export const NewTicket = () => {
   const [formData, setFormData] = useState({
     title: "",
-    project: "",
     description: "",
   });
+  const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch(createTicket(formData));
   };
 
   const onChange = (e) => {
@@ -22,7 +24,7 @@ export const NewTicket = () => {
     }));
   };
 
-  const { title, project, description } = formData;
+  const { title, description } = formData;
 
   return (
     <>
@@ -40,20 +42,15 @@ export const NewTicket = () => {
               value={title}
             />
             <TextField
-              id="project"
-              label="Project name"
-              variant="outlined"
-              onChange={(e) => onChange(e)}
-              value={project}
-            />
-            <TextField
               id="description"
               label="Description"
               variant="outlined"
               onChange={(e) => onChange(e)}
               value={description}
             />
-            <Button variant="contained">Create</Button>
+            <Button variant="contained" type="submit">
+              Create
+            </Button>
           </Box>
         </form>
       </Box>
