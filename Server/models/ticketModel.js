@@ -8,6 +8,10 @@ const ticketSchema = mongoose.Schema(
       required: true,
       ref: 'User'
     },
+    title: {
+      type: String,
+      required: [true, "Title missing"],
+    },
     project: {
       type: String,
       required: [true, "Project missing"],
