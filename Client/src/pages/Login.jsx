@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Paper,
   TextField,
   Typography,
@@ -53,6 +54,8 @@ export const Login = () => {
       dispatch(login(userData));
     }
   };
+
+  if (loading) return <CircularProgress />;
 
   return (
     <main>

@@ -5,6 +5,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Paper,
   TextField,
   Typography,
@@ -60,6 +61,8 @@ export const Register = () => {
       dispatch(signUp(userData));
     }
   };
+
+  if (loading) return <CircularProgress />;
 
   return (
     <main>
