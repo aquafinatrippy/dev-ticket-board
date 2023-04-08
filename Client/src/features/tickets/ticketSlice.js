@@ -87,6 +87,7 @@ export const ticketSlice = createSlice({
         state.tickets = action.payload;
         state.isError = false;
         state.success = true;
+        state.loading = false;
       });
   },
 });

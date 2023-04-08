@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTickets, reset } from "../features/tickets/ticketSlice";
+import { TicketCard } from "../components/TicketCard";
 
 export const Tickets = () => {
   const { tickets, loading, success } = useSelector((state) => state.tickets);
@@ -20,5 +21,11 @@ export const Tickets = () => {
 
   if (loading) return <p>loading</p>;
 
-  return <div>Tickets</div>;
+  return (
+    <div>
+      {tickets.map(({ title, description, _id }) => (
+        <TicketCard key={_id} title={title} description={description} />
+      ))}
+    </div>
+  );
 };

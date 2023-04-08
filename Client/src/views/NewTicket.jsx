@@ -12,7 +12,7 @@ export const NewTicket = () => {
     description: "",
   });
   const { loading, isError, success, message } = useSelector(
-    (state) => state.ticket
+    (state) => state.tickets
   );
 
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ export const NewTicket = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("xx");
     dispatch(
       createTicket({
         project: formData.title,
