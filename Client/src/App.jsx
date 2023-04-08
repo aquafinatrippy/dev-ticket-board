@@ -2,14 +2,15 @@ import { useState } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
+import { Home } from "./views/Home";
+import { Login } from "./views/Login";
+import { Register } from "./views/Register";
 import { Navbar } from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { NewTicket } from "./pages/NewTicket";
+import { NewTicket } from "./views/NewTicket";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { Tickets } from "./views/Tickets";
 
 function App() {
   return (
@@ -34,8 +35,12 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+
                 <Route path="/new-ticket" element={<PrivateRoute />}>
                   <Route path="/new-ticket" element={<NewTicket />} />
+                </Route>
+                <Route path="/tickets" element={<PrivateRoute />}>
+                  <Route path="/tickets" element={<Tickets />} />
                 </Route>
               </Routes>
             </Box>

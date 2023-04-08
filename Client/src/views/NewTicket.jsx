@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTicket, reset } from "../features/tickets/ticketSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { BackButton } from "../components/BackButton";
 
 export const NewTicket = () => {
   const [formData, setFormData] = useState({
@@ -52,6 +53,7 @@ export const NewTicket = () => {
   }
   return (
     <>
+      <BackButton url={"/"} />
       <Box>
         <Box>
           <h1>Create ticket</h1>

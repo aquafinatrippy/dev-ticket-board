@@ -8,7 +8,7 @@ const getTickets = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not identified");
   }
-  const tickets = await Ticket.find({ user: req.user.id });
+  const tickets = await Ticket.find();
   res.status(200).json(tickets);
 });
 
