@@ -2,7 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import jsonwebtoken from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 
-const authCheck = expressAsyncHandler(async (req, res) => {
+const authCheck = expressAsyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&

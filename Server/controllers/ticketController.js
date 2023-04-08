@@ -67,7 +67,7 @@ const createTicket = asyncHandler(async (req, res) => {
     throw new Error("User not identified");
   }
   const ticket = await Ticket.create({
-    project,
+    title: project,
     description,
     user: req.user.id,
     status: "New",

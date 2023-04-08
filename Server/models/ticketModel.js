@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const ticketSchema = mongoose.Schema(
@@ -6,7 +5,7 @@ const ticketSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User'
+      ref: "User",
     },
     title: {
       type: String,
@@ -17,10 +16,9 @@ const ticketSchema = mongoose.Schema(
       required: [true, "Empty description"],
     },
     status: {
-      type: Boolean,
-      required: true,
-      enum: ['New', 'On progress', 'Done', 'On hold'],
-      default: false,
+      type: String,
+      enum: ["New", "On progress", "Done", "On hold"],
+      default: "new",
     },
   },
   {

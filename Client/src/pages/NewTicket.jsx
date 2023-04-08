@@ -1,20 +1,42 @@
 import { Box, Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createTicket } from "../features/tickets/ticketSlice";
+import { createTicket, reset } from "../features/tickets/ticketSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const NewTicket = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
   });
-  const dispatch = useDispatch();
+  const { loading, isError, success, message } = useSelector(
+    (state) => state.ticket
+  );
 
-  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (success) {
+      dispatch(reset());
+      navigate("/tickets");
+    }
+    dispatch(reset());
+  }, [dispatch, isError, success, navigate, message]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(createTicket(formData));
+    console.log("xx");
+    dispatch(
+      createTicket({
+        project: formData.title,
+        description: formData.description,
+      })
+    );
   };
 
   const onChange = (e) => {
@@ -25,7 +47,9 @@ export const NewTicket = () => {
   };
 
   const { title, description } = formData;
-
+  if (loading) {
+    return <p>loading</p>;
+  }
   return (
     <>
       <Box>

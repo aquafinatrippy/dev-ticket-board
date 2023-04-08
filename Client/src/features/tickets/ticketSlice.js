@@ -12,9 +12,10 @@ const initState = {
 
 export const createTicket = createAsyncThunk(
   "ticket/create",
-  async (ticket) => {
+  async (ticket, thunkAPI) => {
     try {
-      return await ticketService.create(ticket);
+      const token = thunkAPI.getState().auth.user.token;
+      return await ticketService.create(ticket, token);
     } catch (error) {
       const msg =
         (error.response &&
@@ -32,7 +33,12 @@ export const ticketSlice = createSlice({
   name: "ticket",
   initialState: initState,
   reducers: {
-    reset: (state) => initState,
+    reset: (state) => {
+      state.loading = false;
+      state.success = false;
+      state.isError = false;
+      state.message = "";
+    },
   },
   extraReducers: (builder) => {
     builder
