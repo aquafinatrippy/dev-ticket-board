@@ -11,10 +11,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { NewTicket } from "./views/NewTicket";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Tickets } from "./views/Tickets";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={darkTheme}>
       <Router>
         <Navbar />
         <Box
@@ -48,7 +55,7 @@ function App() {
         </Box>
       </Router>
       <ToastContainer />
-    </div>
+    </ThemeProvider>
   );
 }
 

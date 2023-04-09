@@ -8,6 +8,7 @@ const initState = {
   loading: true,
   success: false,
   message: "",
+  singleLoading: false
 };
 
 export const createTicket = createAsyncThunk(
@@ -35,6 +36,26 @@ export const getTickets = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await ticketService.getTickets(token);
+    } catch (error) {
+      console.log(error);
+      const msg =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
+export const getTicket = createAsyncThunk(
+  "tickets/getTicket",
+  async (ticketId, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await ticketService.getTicket (ticketId, token);
     } catch (error) {
       console.log(error);
       const msg =
@@ -88,6 +109,20 @@ export const ticketSlice = createSlice({
         state.isError = false;
         state.success = true;
         state.loading = false;
+      })
+      .addCase(getTicket.pending, (state) => {
+        state.singleLoading = true;
+      })
+      .addCase(getTicket.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.payload;
+        state.singleLoading = true;
+      })
+      .addCase(getTicket.fulfilled, (state, action) => {
+        state.ticket = action.payload;
+        state.isError = false;
+        state.success = true;
+        state.singleLoading = false;
       });
   },
 });

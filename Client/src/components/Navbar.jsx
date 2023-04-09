@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
+import { Logo } from "./Logo";
 
 const drawerWidth = 240;
 
@@ -91,11 +92,17 @@ export const Navbar = () => {
   ];
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
+          >
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -105,9 +112,9 @@ export const Navbar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Dev Ticket Board
-            </Typography>
+            <Box>
+              <Logo />
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>
