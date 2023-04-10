@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTickets, reset } from "../features/tickets/ticketSlice";
 import { TicketCard } from "../components/TicketCard";
-import { Grid } from "@mui/material";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 
 export const Tickets = () => {
   const { tickets, loading, success } = useSelector((state) => state.tickets);
@@ -21,15 +21,18 @@ export const Tickets = () => {
   }, [dispatch]);
 
   const drag = (e, id) => {
-    console.log(e, id);
-    e.dataTransfer.setData("text", id);
+    console.log(id, "state");
+    e.dataTransfer.setData("ticket_id", id);
   };
   const allowDrop = (e) => {
     e.preventDefault();
   };
-  const drop = (e) => {
+  const drop = (e, where) => {
     e.preventDefault();
-    console.log(e);
+    console.log(e.dataTransfer.getData("ticket_id"));
+    // e.target.appendChild(
+    //   document.getElementById(e.dataTransfer.getData("text"))
+    // );
   };
 
   if (loading) return <p>loading</p>;
@@ -42,15 +45,22 @@ export const Tickets = () => {
         onDrop={(e) => drop(e)}
         onDragOver={(e) => allowDrop(e)}
       >
-        {tickets.map(({ title, description, _id }) => (
-          <TicketCard
-            onDragStart={(e) => drag(e, _id)}
-            key={_id}
-            id={_id}
-            title={title}
-            description={description}
-          />
-        ))}
+        <Card>
+          <CardContent>
+            <Typography>To do</Typography>
+          </CardContent>
+        </Card>
+        {tickets
+          .filter(({ status }) => status === "New")
+          .map(({ title, description, _id }) => (
+            <TicketCard
+              dragStart={(e) => drag(e, _id)}
+              key={_id}
+              id={_id}
+              title={title}
+              description={description}
+            />
+          ))}
       </Grid>
       <Grid
         item
@@ -58,7 +68,22 @@ export const Tickets = () => {
         onDrop={(e) => drop(e)}
         onDragOver={(e) => allowDrop(e)}
       >
-        <p>xs=3</p>
+        <Card>
+          <CardContent>
+            <Typography>On progress</Typography>
+          </CardContent>
+        </Card>
+        {tickets
+          .filter(({ status }) => status === "On progress")
+          .map(({ title, description, _id }) => (
+            <TicketCard
+              dragStart={(e) => drag(e, _id)}
+              key={_id}
+              id={_id}
+              title={title}
+              description={description}
+            />
+          ))}
       </Grid>
       <Grid
         item
@@ -66,7 +91,22 @@ export const Tickets = () => {
         onDrop={(e) => drop(e)}
         onDragOver={(e) => allowDrop(e)}
       >
-        <p>xs=3</p>
+        <Card>
+          <CardContent>
+            <Typography>Done</Typography>
+          </CardContent>
+        </Card>
+        {tickets
+          .filter(({ status }) => status === "Done")
+          .map(({ title, description, _id }) => (
+            <TicketCard
+              dragStart={(e) => drag(e, _id)}
+              key={_id}
+              id={_id}
+              title={title}
+              description={description}
+            />
+          ))}
       </Grid>
       <Grid
         item
@@ -74,7 +114,22 @@ export const Tickets = () => {
         onDrop={(e) => drop(e)}
         onDragOver={(e) => allowDrop(e)}
       >
-        <p>xs=4</p>
+        <Card>
+          <CardContent>
+            <Typography>On Hold</Typography>
+          </CardContent>
+        </Card>
+        {tickets
+          .filter(({ status }) => status === "On hold")
+          .map(({ title, description, _id }) => (
+            <TicketCard
+              dragStart={(e) => drag(e, _id)}
+              key={_id}
+              id={_id}
+              title={title}
+              description={description}
+            />
+          ))}
       </Grid>
     </Grid>
   );

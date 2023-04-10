@@ -19,10 +19,14 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 import { Logo } from "./Logo";
+import WindowIcon from "@mui/icons-material/Window";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 
 const drawerWidth = 240;
 
@@ -55,6 +59,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export const Navbar = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const mobile = useMediaQuery("(max-width:600px)");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -101,17 +106,39 @@ export const Navbar = () => {
               display: "flex",
               width: "100%",
               justifyContent: "space-between",
+              alignContent: "baseline",
             }}
           >
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
-            >
-              <MenuIcon />
-            </IconButton>
+            {mobile ? (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{ mr: 2, ...(open && { display: "none" }) }}
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Tooltip title={"Log out"}>
+                  <IconButton onClick={() => onLogout()}>
+                    <LogoutIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={"View Tickets"}>
+                  <IconButton onClick={() => navigate("/tickets")}>
+                    <ConfirmationNumberIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={"Dashboard"}>
+                  <IconButton onClick={() => navigate("/")}>
+                    <WindowIcon />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            )}
+
             <Box>
               <Logo />
             </Box>
@@ -127,9 +154,10 @@ export const Navbar = () => {
             boxSizing: "border-box",
           },
         }}
-        variant="persistent"
+        variant="temporary"
         anchor="left"
         open={open}
+        onClose={(_, reason) => reason === "backdropClick" && setOpen(false)}
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>

@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TicketDialog from "./TicketDialog";
 
-export const TicketCard = ({ title, description, id }) => {
+export const TicketCard = ({ title, description, id, dragStart }) => {
   const card = (
     <React.Fragment>
       <CardContent>
@@ -23,8 +23,8 @@ export const TicketCard = ({ title, description, id }) => {
   );
 
   return (
-    <Box sx={{ minWidth: 275, padding: 2 }}>
-      <Card draggable={true} variant="outlined">
+    <Box sx={{ minWidth: 275, padding: "10px 0 10px 0" }}>
+      <Card id={id} onDragStart={dragStart} draggable={true}>
         {card}
       </Card>
     </Box>
