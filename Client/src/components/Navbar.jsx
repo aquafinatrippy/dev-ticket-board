@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -26,6 +26,7 @@ import { Logo } from "./Logo";
 import WindowIcon from "@mui/icons-material/Window";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 
 const drawerWidth = 240;
@@ -121,11 +122,20 @@ export const Navbar = () => {
               </IconButton>
             ) : (
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Tooltip title={"Log out"}>
-                  <IconButton onClick={() => onLogout()}>
-                    <LogoutIcon />
-                  </IconButton>
-                </Tooltip>
+                {user ? (
+                  <Tooltip title={"Log out"}>
+                    <IconButton onClick={() => onLogout()}>
+                      <LogoutIcon />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title={"Log In"}>
+                    <IconButton onClick={() => navigate("/login")}>
+                      <LockOpenIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+
                 <Tooltip title={"View Tickets"}>
                   <IconButton onClick={() => navigate("/tickets")}>
                     <ConfirmationNumberIcon />

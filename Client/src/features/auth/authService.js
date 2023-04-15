@@ -18,8 +18,18 @@ const login = async (userData) => {
   return res.data;
 };
 
+const checkUser = async (token, userId) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const res = await axios.get(`${API_URL}/me/${userId}`, config);
+  return res.data;
+};
+
 const logout = () => localStorage.removeItem("user");
 
-const authService = { register, logout, login };
+const authService = { register, logout, login, checkUser };
 
 export default authService;

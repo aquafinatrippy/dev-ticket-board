@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTickets, reset } from "../features/tickets/ticketSlice";
+import {
+  getTickets,
+  reset,
+  updateStatus,
+} from "../features/tickets/ticketSlice";
 import { TicketCard } from "../components/TicketCard";
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 
@@ -29,7 +33,9 @@ export const Tickets = () => {
   };
   const drop = (e, where) => {
     e.preventDefault();
+    const id = e.dataTransfer.getData("ticket_id");
     console.log(e.dataTransfer.getData("ticket_id"));
+    dispatch(updateStatus(id, where));
     // e.target.appendChild(
     //   document.getElementById(e.dataTransfer.getData("text"))
     // );
@@ -42,7 +48,7 @@ export const Tickets = () => {
       <Grid
         item
         xs={3}
-        onDrop={(e) => drop(e)}
+        onDrop={(e) => drop(e, "To do")}
         onDragOver={(e) => allowDrop(e)}
       >
         <Card>
@@ -65,7 +71,7 @@ export const Tickets = () => {
       <Grid
         item
         xs={3}
-        onDrop={(e) => drop(e)}
+        onDrop={(e) => drop(e, "On progress")}
         onDragOver={(e) => allowDrop(e)}
       >
         <Card>
@@ -88,7 +94,7 @@ export const Tickets = () => {
       <Grid
         item
         xs={3}
-        onDrop={(e) => drop(e)}
+        onDrop={(e) => drop(e, "Done")}
         onDragOver={(e) => allowDrop(e)}
       >
         <Card>
@@ -111,7 +117,7 @@ export const Tickets = () => {
       <Grid
         item
         xs={3}
-        onDrop={(e) => drop(e)}
+        onDrop={(e) => drop(e, "On hold")}
         onDragOver={(e) => allowDrop(e)}
       >
         <Card>

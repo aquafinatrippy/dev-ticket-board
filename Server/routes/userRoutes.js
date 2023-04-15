@@ -12,6 +12,6 @@ router.post("/", RegisterUser);
 
 router.post("/login", LoginUser);
 
-router.get("/me", authCheck, GetMe);
+router.get("/me/:id", authCheck, GetMe);
 
 export default router;

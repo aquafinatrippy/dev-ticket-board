@@ -75,4 +75,15 @@ const createTicket = asyncHandler(async (req, res) => {
   res.status(201).json(ticket);
 });
 
-export { getTickets, createTicket, getTicket, deleteTicket, updateTicket };
+const updateStatus = asyncHandler(async (req, res) => {
+  const ticket = await Ticket.findById(req.params.id);
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+  const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id, req.body.status);
+  res.status(201).json(updatedTicket);
+});
+
+
+export { getTickets, createTicket, getTicket, deleteTicket, updateTicket, updateStatus };

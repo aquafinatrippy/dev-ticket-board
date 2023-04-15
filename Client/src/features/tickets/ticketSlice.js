@@ -8,7 +8,7 @@ const initState = {
   loading: true,
   success: false,
   message: "",
-  singleLoading: false
+  singleLoading: false,
 };
 
 export const createTicket = createAsyncThunk(
@@ -55,7 +55,27 @@ export const getTicket = createAsyncThunk(
   async (ticketId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await ticketService.getTicket (ticketId, token);
+      return await ticketService.getTicket(ticketId, token);
+    } catch (error) {
+      console.log(error);
+      const msg =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
+export const updateStatus = createAsyncThunk(
+  "tickets/updateTicket",
+  async (ticketId, status, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await ticketService.getTicket(ticketId, status, token);
     } catch (error) {
       console.log(error);
       const msg =

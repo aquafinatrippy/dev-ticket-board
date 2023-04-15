@@ -53,12 +53,15 @@ const LoginUser = asyncHandler(async (req, res) => {
 });
 
 const GetMe = asyncHandler(async (req, res) => {
-  const { id: _id, name, email } = req.user;
-  res.status(200).send({
-    id,
-    name,
-    email,
-  });
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(401).send(error);
+  }
 });
 
 const generateToken = (id) => {

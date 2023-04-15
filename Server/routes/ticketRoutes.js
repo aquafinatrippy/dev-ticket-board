@@ -4,6 +4,7 @@ import {
   deleteTicket,
   getTicket,
   getTickets,
+  updateStatus,
   updateTicket,
 } from "../controllers/ticketController.js";
 import { authCheck } from "../middleware/authMiddleware.js";
@@ -16,5 +17,7 @@ router
   .get(authCheck, getTicket)
   .put(authCheck, updateTicket)
   .delete(authCheck, deleteTicket);
+
+router.route("/status/:id").put(authCheck, updateStatus);
 
 export default router;
