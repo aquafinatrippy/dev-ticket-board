@@ -72,10 +72,14 @@ export const getTicket = createAsyncThunk(
 
 export const updateStatus = createAsyncThunk(
   "tickets/updateTicket",
-  async (ticketId, status, thunkAPI) => {
+  async (ticketData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await ticketService.getTicket(ticketId, status, token);
+      return await ticketService.updateStatus(
+        ticketData.ticketId,
+        ticketData.status,
+        token
+      );
     } catch (error) {
       console.log(error);
       const msg =

@@ -7,12 +7,12 @@ export const Logo = () => {
   return (
     <Box sx={{ padding: "5px" }}>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <ConfirmationNumberIcon />
+        <ConfirmationNumberIcon color={"primary"} />
         <BugReportIcon />
       </Box>
       <hr />
       <Box>
-        <Typography>DevTM</Typography>
+        <Typography color={"primary"}>DevTM</Typography>
       </Box>
     </Box>
   );

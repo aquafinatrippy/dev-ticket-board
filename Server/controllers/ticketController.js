@@ -76,14 +76,27 @@ const createTicket = asyncHandler(async (req, res) => {
 });
 
 const updateStatus = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("User not identified");
+  }
   const ticket = await Ticket.findById(req.params.id);
   if (!ticket) {
     res.status(404);
     throw new Error("Ticket not found");
   }
-  const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id, req.body.status);
+  const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id, {
+    status: req.body.status,
+  });
   res.status(201).json(updatedTicket);
 });
 
-
-export { getTickets, createTicket, getTicket, deleteTicket, updateTicket, updateStatus };
+export {
+  getTickets,
+  createTicket,
+  getTicket,
+  deleteTicket,
+  updateTicket,
+  updateStatus,
+};

@@ -14,6 +14,14 @@
   -webkit-text-size-adjust: 100%;
 }
 
+#root {
+  background-image: url("assets/woods-g87a53ba0e_1920.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
 a {
   font-weight: 500;
   color: #646cff;

@@ -52,22 +52,10 @@ const LoginUser = asyncHandler(async (req, res) => {
   }
 });
 
-const GetMe = asyncHandler(async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).send(user);
-  } catch (error) {
-    res.status(401).send(error);
-  }
-});
-
 const generateToken = (id) => {
   return jsonwebtoken.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 };
 
-export { RegisterUser, LoginUser, GetMe };
+export { RegisterUser, LoginUser };

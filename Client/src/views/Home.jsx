@@ -1,51 +1,42 @@
-import { Box, Button } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import { useDispatch, useSelector } from "react-redux";
-import { ifLogged } from "../features/auth/authSlice";
 
 export const Home = () => {
-  const { user } = useSelector((state) => state.tickets);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (user) {
-      dispatch(ifLogged(user._id));
-    }
-  }, [dispatch]);
 
   return (
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
-        gap: "10px",
+        gap: "20px",
       }}
     >
       <div>
-        <Button
-          variant="contained"
-          size="large"
-          fullWidth
+        <Box
           onClick={() => navigate("/new-ticket")}
-          endIcon={<NoteAddIcon />}
+          width={400}
+          height={300}
+          className="write_note"
         >
-          Create new ticket
-        </Button>
+          <div class="blur">
+            <span>Create New Ticket</span>
+          </div>
+        </Box>
       </div>
       <div>
-        <Button
-          variant="contained"
-          fullWidth
-          size="large"
+        <Box
           onClick={() => navigate("/tickets")}
-          endIcon={<VisibilityIcon />}
+          width={400}
+          height={300}
+          className="read_note"
         >
-          View my tickets
-        </Button>
+          <div class="blur">
+            <span>View Tickets</span>
+          </div>
+        </Box>
       </div>
     </Box>
   );

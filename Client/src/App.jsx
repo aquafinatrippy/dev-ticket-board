@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -12,10 +11,18 @@ import { NewTicket } from "./views/NewTicket";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Tickets } from "./views/Tickets";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "../src/styles/home.scss";
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+  },
+  overrides: {
+    MuiInput: {
+      root: {
+        background: "black", // Replace with your desired background color
+      },
+    },
   },
 });
 

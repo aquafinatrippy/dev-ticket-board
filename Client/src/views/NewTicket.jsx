@@ -62,14 +62,12 @@ export const NewTicket = () => {
             <TextField
               id="title"
               label="Title"
-              variant="outlined"
               onChange={(e) => onChange(e)}
               value={title}
             />
             <TextField
               id="description"
               label="Description"
-              variant="outlined"
               onChange={(e) => onChange(e)}
               value={description}
             />

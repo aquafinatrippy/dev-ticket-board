@@ -39,6 +39,7 @@ const updateStatus = async (id, status, token) => {
     },
   };
   const res = await axios.put(`${API_URL}/status/${id}`, { status }, config);
+  console.log(res.data);
   return res.data;
 };
 
