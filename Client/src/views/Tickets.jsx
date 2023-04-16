@@ -36,9 +36,7 @@ export const Tickets = () => {
     const id = e.dataTransfer.getData("ticket_id");
     console.log(e.dataTransfer.getData("ticket_id"));
     dispatch(updateStatus({ ticketId: id, status: where }));
-    // e.target.appendChild(
-    //   document.getElementById(e.dataTransfer.getData("text"))
-    // );
+    e.target.appendChild(document.getElementById(id));
   };
 
   if (loading) return <p>loading</p>;

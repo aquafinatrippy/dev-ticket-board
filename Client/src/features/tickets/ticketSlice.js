@@ -143,7 +143,7 @@ export const ticketSlice = createSlice({
         state.singleLoading = true;
       })
       .addCase(getTicket.fulfilled, (state, action) => {
-        state.ticket = action.payload;
+        state.tickets[action.payload._id].status = action.payload.status;
         state.isError = false;
         state.success = true;
         state.singleLoading = false;
