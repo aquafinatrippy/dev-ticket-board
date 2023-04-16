@@ -1,8 +1,9 @@
 .read_note {
   position: relative;
   cursor: pointer;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("../assets/Hand of manager checking notes in notebook.jpg");
+  background-color: rgba(144, 202, 249, 0.3);
+  backdrop-filter: blur(10px);
+
   &:before {
     content: "";
     position: absolute;
@@ -16,6 +17,8 @@
     transition: filter 0.5s ease;
   }
   &:hover {
+    background-color: rgba(144, 202, 249, 0.5);
+
     &:before {
       filter: blur(2px);
     }
@@ -26,8 +29,7 @@
 .write_note {
   position: relative;
   cursor: pointer;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("../assets/Hands of student doing test or writing in planner.jpg");
+  background-color: rgba(144, 202, 249, 0.3);
   backdrop-filter: blur(10px);
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -44,6 +46,8 @@
     transition: filter 0.5s ease;
   }
   &:hover {
+    background-color: rgba(144, 202, 249, 0.5);
+
     &:before {
       filter: blur(2px);
     }

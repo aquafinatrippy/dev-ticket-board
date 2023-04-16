@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
@@ -35,14 +35,17 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-
 export const Navbar = () => {
   //const mobile = useMediaQuery("(max-width:600px)");
-
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
+  const activeLink = (route) => {
+    if (location.pathname === route) return "primary";
+    return "";
+  };
 
   const onLogout = () => {
     dispatch(logout());
@@ -72,19 +75,28 @@ export const Navbar = () => {
                 </Tooltip>
               ) : (
                 <Tooltip title={"Log In"}>
-                  <IconButton onClick={() => navigate("/login")}>
+                  <IconButton
+                    color={activeLink("/login")}
+                    onClick={() => navigate("/login")}
+                  >
                     <LockOpenIcon />
                   </IconButton>
                 </Tooltip>
               )}
 
               <Tooltip title={"View Tickets"}>
-                <IconButton onClick={() => navigate("/tickets")}>
+                <IconButton
+                  onClick={() => navigate("/tickets")}
+                  color={activeLink("/tickets")}
+                >
                   <ConfirmationNumberIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip title={"Dashboard"}>
-                <IconButton onClick={() => navigate("/")}>
+                <IconButton
+                  color={activeLink("/")}
+                  onClick={() => navigate("/")}
+                >
                   <WindowIcon />
                 </IconButton>
               </Tooltip>

@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 
@@ -21,8 +21,10 @@ export const Home = () => {
           height={300}
           className="write_note"
         >
-          <div class="blur">
+          <div className="blur">
             <span>Create New Ticket</span>
+            <br />
+            <NoteAddIcon />
           </div>
         </Box>
       </div>
@@ -33,8 +35,10 @@ export const Home = () => {
           height={300}
           className="read_note"
         >
-          <div class="blur">
+          <div className="blur">
             <span>View Tickets</span>
+            <br />
+            <VisibilityIcon />
           </div>
         </Box>
       </div>
