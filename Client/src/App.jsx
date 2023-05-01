@@ -43,7 +43,6 @@ function App() {
           }}
         >
           <Container fixed sx={{ margin: "100px auto 0 auto" }}>
-            {" "}
             <Box display="flex" sx={{ justifyContent: "center" }}>
               <Routes>
                 <Route path="/" element={<Home />} />

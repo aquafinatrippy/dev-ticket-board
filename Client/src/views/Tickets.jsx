@@ -7,9 +7,12 @@ import {
 } from "../features/tickets/ticketSlice";
 import { TicketCard } from "../components/TicketCard";
 import { Card, CardContent, Grid, Typography } from "@mui/material";
+import { resetUser } from "../features/auth/authSlice";
 
 export const Tickets = () => {
-  const { tickets, loading, success } = useSelector((state) => state.tickets);
+  const { tickets, loading, success, isError } = useSelector(
+    (state) => state.tickets
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,8 +20,11 @@ export const Tickets = () => {
       if (success) {
         dispatch(reset());
       }
+      if (isError && success) {
+        dispatch(resetUser());
+      }
     };
-  }, [dispatch, success]);
+  }, [dispatch, success, isError]);
 
   useEffect(() => {
     dispatch(getTickets());
